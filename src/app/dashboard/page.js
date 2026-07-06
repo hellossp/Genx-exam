@@ -161,10 +161,16 @@ export default function Dashboard() {
               <h1 style={{ fontSize: "32px" }}>Examiner Dashboard</h1>
               <p style={{ color: "var(--text-secondary)", fontSize: "14px", marginTop: "4px" }}>Manage classes, configure examination papers, and track reports.</p>
             </div>
-            <button onClick={() => router.push("/dashboard/create")} className="btn btn-primary" style={{ gap: "10px" }}>
-              <Plus size={18} />
-              Create Exam Paper
-            </button>
+            <div style={{ display: "flex", gap: "12px" }}>
+              <button onClick={() => router.push("/dashboard/seed")} className="btn btn-secondary" style={{ gap: "8px", padding: "10px 14px" }}>
+                <BookOpen size={16} />
+                Load Practice Paper
+              </button>
+              <button onClick={() => router.push("/dashboard/create")} className="btn btn-primary" style={{ gap: "10px" }}>
+                <Plus size={18} />
+                Create Exam Paper
+              </button>
+            </div>
           </div>
 
           {/* Stat summary cards */}
