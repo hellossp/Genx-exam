@@ -232,18 +232,17 @@ function ExamRoom() {
       for (let idx = 0; idx < testCases.length; idx++) {
         const tc = testCases[idx];
         
-        const res = await fetch("https://emkc.org/api/v2/piston/execute", {
+        let finalCode = codeString;
+        if (language === "java") {
+          finalCode = codeString.replace(/public\s+class\s+/, "class ");
+        }
+
+        const res = await fetch("https://wandbox.org/api/compile.json", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            language: language === "javascript" ? "js" : language,
-            version: "*",
-            files: [
-              {
-                name: language === "java" ? "Main.java" : language === "cpp" ? "main.cpp" : "main.js",
-                content: codeString
-              }
-            ],
+            code: finalCode,
+            compiler: language === "java" ? "openjdk-jdk-21+35" : language === "cpp" ? "gcc-13.2.0" : "nodejs-20.17.0",
             stdin: tc.input
           })
         });
@@ -253,16 +252,19 @@ function ExamRoom() {
         }
 
         const data = await res.json();
+        const compileErr = data.compiler_error || "";
+        const runErr = data.program_error || "";
+        const totalErr = (compileErr + runErr).trim();
         
-        if (data.run.stderr) {
+        if (totalErr) {
           allPassed = false;
           results.push({
             index: idx + 1,
             passed: false,
-            error: data.run.stderr
+            error: totalErr
           });
         } else {
-          const actualStr = (data.run.stdout || "").trim().toLowerCase();
+          const actualStr = (data.program_output || "").trim().toLowerCase();
           const expectedStr = tc.output.trim().toLowerCase();
           const passed = actualStr === expectedStr;
           
@@ -270,7 +272,7 @@ function ExamRoom() {
           results.push({
             index: idx + 1,
             passed,
-            actual: data.run.stdout || "",
+            actual: data.program_output || "",
             expected: tc.output
           });
         }
@@ -334,19 +336,20 @@ function ExamRoom() {
         else if (q.type === "code") {
           let allPassed = true;
           
+          let finalCode = studentAns;
+          if (q.language === "java") {
+            finalCode = studentAns.replace(/public\s+class\s+/, "class ");
+          }
+
           for (let j = 0; j < q.testCases.length; j++) {
             const tc = q.testCases[j];
             try {
-              const res = await fetch("https://emkc.org/api/v2/piston/execute", {
+              const res = await fetch("https://wandbox.org/api/compile.json", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                  language: q.language === "javascript" ? "js" : q.language,
-                  version: "*",
-                  files: [{
-                    name: q.language === "java" ? "Main.java" : q.language === "cpp" ? "main.cpp" : "main.js",
-                    content: studentAns
-                  }],
+                  code: finalCode,
+                  compiler: q.language === "java" ? "openjdk-jdk-21+35" : q.language === "cpp" ? "gcc-13.2.0" : "nodejs-20.17.0",
                   stdin: tc.input
                 })
               });
@@ -357,12 +360,16 @@ function ExamRoom() {
               }
 
               const data = await res.json();
-              if (data.run.stderr) {
+              const compileErr = data.compiler_error || "";
+              const runErr = data.program_error || "";
+              const totalErr = (compileErr + runErr).trim();
+
+              if (totalErr) {
                 allPassed = false;
                 break;
               }
 
-              const actualStr = (data.run.stdout || "").trim().toLowerCase();
+              const actualStr = (data.program_output || "").trim().toLowerCase();
               const expectedStr = tc.output.trim().toLowerCase();
               if (actualStr !== expectedStr) {
                 allPassed = false;
