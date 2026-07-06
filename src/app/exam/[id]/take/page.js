@@ -237,7 +237,7 @@ function ExamRoom() {
           finalCode = codeString.replace(/public\s+class\s+/, "class ");
         }
 
-        const res = await fetch("https://wandbox.org/api/compile.json", {
+        const res = await fetch("/api/compile", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -344,7 +344,7 @@ function ExamRoom() {
           for (let j = 0; j < q.testCases.length; j++) {
             const tc = q.testCases[j];
             try {
-              const res = await fetch("https://wandbox.org/api/compile.json", {
+              const res = await fetch("/api/compile", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

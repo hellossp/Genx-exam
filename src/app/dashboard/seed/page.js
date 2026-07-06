@@ -391,7 +391,7 @@ export default function Seeder() {
             points: 20,
             topic: "arrays",
             language: "java",
-            codeTemplate: `import java.util.Scanner;\n\nclass MagicSquare {\n    int n;\n    int matrix[][];\n    MagicSquare(int n) {\n        this.n = n;\n        matrix = new int[n][n];\n    }\n    void fill(Scanner sc) {\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n; j++) {\n                matrix[i][j] = sc.nextInt();\n            }\n        }\n    }\n    boolean isMagic() {\n        int target = 0;\n        for (int j = 0; j < n; j++) target += matrix[0][j];\n        for (int i = 0; i < n; i++) {\n            int rowSum = 0;\n            for (int j = 0; j < n; j++) rowSum += matrix[i][j];\n            if (rowSum != target) return false;\n        }\n        for (int j = 0; j < n; j++) {\n            int colSum = 0;\n            for (int i = 0; i < n; i++) colSum += matrix[i][j];\n            if (colSum != target) return false;\n        }\n        int diag1 = 0, diag2 = 0;\n        for (int i = 0; i < n; i++) {\n            diag1 += matrix[i][i];\n            diag2 += matrix[i][n - 1 - i];\n        }\n        return (diag1 == target && diag2 == target);\n    }\n    void display() {\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n; j++) {\n                System.out.print(matrix[i][j] + "\\t");\n            }\n            System.out.println();\n        }\n        if (isMagic()) System.out.println("MAGIC SQUARE");\n        else System.out.println("NOT A MAGIC SQUARE");\n    }\n}\n\npublic class Main {\n    public static void main(String args[]) {\n        Scanner sc = new Scanner(System.in);\n        if (sc.hasNextInt()) {\n            int n = sc.nextInt();\n            MagicSquare ms = new MagicSquare(n);\n            ms.fill(sc);\n            ms.display();\n        }\n    }\n}`,
+            codeTemplate: `import java.util.Scanner;\\n\\npublic class Main {\\n    public static void main(String args[]) {\\n        Scanner sc = new Scanner(System.in);\\n        // Write your Magic Square check code here\\n        \\n    }\\n}`,
             testCases: [
               { input: "3\n2 7 6\n9 5 1\n4 3 8", output: "2\t7\t6\t\n9\t5\t1\t\n4\t3\t8\t\nMAGIC SQUARE" },
               { input: "3\n1 2 3\n4 5 6\n7 8 9", output: "1\t2\t3\t\n4\t5\t6\t\n7\t8\t9\t\nNOT A MAGIC SQUARE" }
@@ -404,7 +404,7 @@ export default function Seeder() {
             points: 20,
             topic: "strings",
             language: "java",
-            codeTemplate: `import java.util.Scanner;\n\npublic class Main {\n    public static void main(String args[]) {\n        Scanner sc = new Scanner(System.in);\n        if (sc.hasNextLine()) {\n            String sentence = sc.nextLine();\n            String result = "";\n            String word = "";\n            for (int i = 0; i <= sentence.length(); i++) {\n                if (i == sentence.length() || sentence.charAt(i) == ' ') {\n                    String reversedWord = "";\n                    for (int j = word.length() - 1; j >= 0; j--) {\n                        reversedWord = reversedWord + word.charAt(j);\n                    }\n                    result = result + reversedWord + " ";\n                    word = "";\n                } else {\n                    word = word + sentence.charAt(i);\n                }\n            }\n            System.out.println("Reversed word-wise: " + result.trim());\n        }\n    }\n}`,
+            codeTemplate: `import java.util.Scanner;\\n\\npublic class Main {\\n    public static void main(String args[]) {\\n        Scanner sc = new Scanner(System.in);\\n        // Write your Word Reversal code here\\n        \\n    }\\n}`,
             testCases: [
               { input: "This is a test", output: "Reversed word-wise: sihT si a tset" },
               { input: "Hello World", output: "Reversed word-wise: olleH dlroW" }
@@ -417,7 +417,7 @@ export default function Seeder() {
             points: 20,
             topic: "methods",
             language: "java",
-            codeTemplate: `import java.util.Scanner;\n\nclass HCFDemo {\n    int hcfIterative(int a, int b) {\n        int x = a, y = b;\n        while (y != 0) {\n            int temp = y;\n            y = x % y;\n            x = temp;\n        }\n        return x;\n    }\n    int hcfRecursive(int a, int b) {\n        if (b == 0) return a;\n        return hcfRecursive(b, a % b);\n    }\n}\n\npublic class Main {\n    public static void main(String args[]) {\n        Scanner sc = new Scanner(System.in);\n        if (sc.hasNextInt()) {\n            int a = sc.nextInt();\n            int b = sc.nextInt();\n            HCFDemo obj = new HCFDemo();\n            int h1 = obj.hcfIterative(a, b);\n            int h2 = obj.hcfRecursive(a, b);\n            System.out.println("HCF (Iterative) = " + h1);\n            System.out.println("HCF (Recursive) = " + h2);\n            if (h1 == h2) {\n                System.out.println("Both methods give the same result.");\n            } else {\n                System.out.println("Results do not match.");\n            }\n        }\n    }\n}`,
+            codeTemplate: `import java.util.Scanner;\\n\\npublic class Main {\\n    public static void main(String args[]) {\\n        Scanner sc = new Scanner(System.in);\\n        // Write your HCF calculation code here\\n        \\n    }\\n}`,
             testCases: [
               { input: "48 18", output: "HCF (Iterative) = 6\nHCF (Recursive) = 6\nBoth methods give the same result." },
               { input: "15 5", output: "HCF (Iterative) = 5\nHCF (Recursive) = 5\nBoth methods give the same result." }
@@ -430,7 +430,7 @@ export default function Seeder() {
             points: 20,
             topic: "library classes",
             language: "java",
-            codeTemplate: `import java.util.Scanner;\n\npublic class Main {\n    public static void main(String args[]) {\n        Scanner sc = new Scanner(System.in);\n        if (sc.hasNextInt()) {\n            int n = sc.nextInt();\n            int count = 0;\n            System.out.println("Duck Numbers between 1 and " + n + ":");\n            for (int i = 1; i <= n; i++) {\n                String s = String.valueOf(i);\n                if (s.substring(1).indexOf('0') != -1) {\n                    System.out.print(i + " ");\n                    count++;\n                }\n            }\n            System.out.println();\n            System.out.println("Total Duck Numbers found: " + count);\n        }\n    }\n}`,
+            codeTemplate: `import java.util.Scanner;\\n\\npublic class Main {\\n    public static void main(String args[]) {\\n        Scanner sc = new Scanner(System.in);\\n        // Write your Duck Numbers check code here\\n        \\n    }\\n}`,
             testCases: [
               { input: "100", output: "Duck Numbers between 1 and 100:\n10 20 30 40 50 60 70 80 90 100 \nTotal Duck Numbers found: 10" }
             ]
@@ -442,7 +442,7 @@ export default function Seeder() {
             points: 20,
             topic: "constructors",
             language: "java",
-            codeTemplate: `class Student {\n    int rollNo;\n    String name;\n    int marks[];\n    double percentage;\n    char grade;\n    Student() {\n        rollNo = 0;\n        name = "No Name";\n        marks = new int[5];\n    }\n    Student(int r, String n, int m[]) {\n        rollNo = r;\n        name = n;\n        marks = new int[5];\n        for (int i = 0; i < 5; i++) marks[i] = m[i];\n    }\n    void calculate() {\n        int total = 0;\n        for (int i = 0; i < 5; i++) total += marks[i];\n        percentage = (total / 500.0) * 100;\n        if (percentage >= 90) grade = 'A';\n        else if (percentage >= 75) grade = 'B';\n        else if (percentage >= 60) grade = 'C';\n        else if (percentage >= 40) grade = 'D';\n        else grade = 'E';\n    }\n    void display() {\n        System.out.println("Roll No : " + rollNo);\n        System.out.println("Name : " + name);\n        System.out.print("Marks : ");\n        for (int i = 0; i < 5; i++) System.out.print(marks[i] + " ");\n        System.out.println();\n        System.out.printf("Percentage: %.2f\\n", percentage);\n        System.out.println("Grade : " + grade);\n        System.out.println("--------------------------");\n    }\n}\n\npublic class Main {\n    public static void main(String args[]) {\n        Student s1 = new Student();\n        s1.calculate();\n        s1.display();\n        int m[] = {85, 90, 78, 88, 95};\n        Student s2 = new Student(101, "Aditi Sharma", m);\n        s2.calculate();\n        s2.display();\n    }\n}`,
+            codeTemplate: `// Write your Student class and main execution here\\n\\npublic class Main {\\n    public static void main(String args[]) {\\n        // Initialize, calculate, and display student profiles\\n        \\n    }\\n}`,
             testCases: [
               { input: "", output: "Roll No : 0\nName : No Name\nMarks : 0 0 0 0 0 \nPercentage: 0.00\nGrade : E\n--------------------------\nRoll No : 101\nName : Aditi Sharma\nMarks : 85 90 78 88 95 \nPercentage: 87.20\nGrade : B\n--------------------------" }
             ]
@@ -454,7 +454,7 @@ export default function Seeder() {
             points: 20,
             topic: "loops",
             language: "java",
-            codeTemplate: `import java.util.Scanner;\n\npublic class Main {\n    public static void main(String args[]) {\n        Scanner sc = new Scanner(System.in);\n        if (sc.hasNextInt()) {\n            int n = sc.nextInt();\n            int num = 1;\n            int rowStart[] = new int[n];\n            for (int i = 1; i <= n; i++) {\n                rowStart[i - 1] = num;\n                for (int j = 1; j <= i; j++) {\n                    System.out.print(num + " ");\n                    num++;\n                }\n                System.out.println();\n            }\n            for (int i = n; i >= 1; i--) {\n                int start = rowStart[i - 1];\n                for (int j = 0; j < i; j++) {\n                    System.out.print((start + j) + " ");\n                }\n                System.out.println();\n            }\n        }\n    }\n}`,
+            codeTemplate: `import java.util.Scanner;\\n\\npublic class Main {\\n    public static void main(String args[]) {\\n        Scanner sc = new Scanner(System.in);\\n        // Write your Number Pyramid code here\\n        \\n    }\\n}`,
             testCases: [
               { input: "4", output: "1 \n2 3 \n4 5 6 \n7 8 9 10 \n7 8 9 10 \n4 5 6 \n2 3 \n1 " }
             ]
@@ -466,7 +466,7 @@ export default function Seeder() {
             points: 20,
             topic: "strings",
             language: "java",
-            codeTemplate: `import java.util.Scanner;\n\nclass Cipher {\n    String encrypt(String message, int key) {\n        String result = "";\n        key = key % 26;\n        for (int i = 0; i < message.length(); i++) {\n            char ch = message.charAt(i);\n            if (ch >= 'A' && ch <= 'Z') {\n                result += (char) ('A' + (ch - 'A' + key + 26) % 26);\n            } else if (ch >= 'a' && ch <= 'z') {\n                result += (char) ('a' + (ch - 'a' + key + 26) % 26);\n            } else {\n                result += ch;\n            }\n        }\n        return result;\n    }\n    String decrypt(String message, int key) {\n        return encrypt(message, -key);\n    }\n}\n\npublic class Main {\n    public static void main(String args[]) {\n        Scanner sc = new Scanner(System.in);\n        if (sc.hasNextLine()) {\n            String msg = sc.nextLine();\n            int key = sc.nextInt();\n            Cipher c = new Cipher();\n            String enc = c.encrypt(msg, key);\n            String dec = c.decrypt(enc, key);\n            System.out.println("Encrypted: " + enc);\n            System.out.println("Decrypted: " + dec);\n        }\n    }\n}`,
+            codeTemplate: `import java.util.Scanner;\\n\\npublic class Main {\\n    public static void main(String args[]) {\\n        Scanner sc = new Scanner(System.in);\\n        // Write your Caesar Cipher code here\\n        \\n    }\\n}`,
             testCases: [
               { input: "Hello World\n3", output: "Encrypted: Khoor Zruog\nDecrypted: Hello World" }
             ]
